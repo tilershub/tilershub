@@ -1,0 +1,22 @@
+[
+  {
+    "id": "saman-anurudda",
+    "name": "Saman Anurudda",
+    "city": "Galle",
+    "image": "/tilers/images/tilers/saman.png",
+    "featured": true,
+    "rating": 5.0,
+    "reviewCount": 8,
+    "bio": "Skilled tiler based in Galle with a reputation for neat bathroom and kitchen tiling work."
+  },
+  {
+    "id": "sujith-anurada",
+    "name": "Sujith Anurada",
+    "city": "Seeduwa, Gampaha",
+    "image": "/tilers/images/tilers/sujith.png",
+    "featured": true,
+    "rating": 4.9,
+    "reviewCount": 22,
+    "bio": "Master Tiler, expert in large format, pools, and mosaics. Government registered."
+  }
+]
