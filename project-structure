@@ -1,0 +1,25 @@
+tilershub-react/
+├─ netlify.toml
+├─ package.json
+├─ index.html
+├─ vite.config.js
+├─ public/
+│  └─ tilers/tilers.json
+└─ src/
+   ├─ main.jsx
+   ├─ App.jsx
+   ├─ styles/globals.css
+   ├─ lib/
+   │  ├─ supabaseClient.js
+   │  └─ AuthProvider.jsx
+   ├─ components/
+   │  ├─ Header.jsx
+   │  ├─ Footer.jsx
+   │  ├─ ProtectedRoute.jsx
+   │  └─ TilerCard.jsx
+   └─ pages/
+      ├─ Home.jsx
+      ├─ Tilers.jsx
+      └─ admin/
+         ├─ Login.jsx
+         └─ TilersAdmin.jsx
