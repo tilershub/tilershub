@@ -1,0 +1,71 @@
+:root {
+  --brand: #0d3b66;
+  --ink: #1b1b1b;
+  --muted: #6b7280;
+  --bg: #ffffff;
+  --card: #f7f8fa;
+  --ring: #e5e7eb;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.header {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg); border-bottom: 1px solid var(--ring);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; gap: 12px;
+}
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand-logo {
+  width: 36px; height: 36px; border-radius: 8px; background: var(--brand);
+}
+.nav a {
+  text-decoration: none; color: var(--ink); padding: 8px 10px; border-radius: 6px;
+}
+.nav a.active, .nav a:hover { background: var(--card); }
+
+.footer { border-top: 1px solid var(--ring); padding: 24px 16px; color: var(--muted); }
+
+.hstack { display: flex; align-items: center; gap: 10px; }
+.vstack { display: flex; flex-direction: column; gap: 8px; }
+
+.section-title { font-size: 1.1rem; margin: 16px 0 10px; font-weight: 700; }
+
+.scroller {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 85%;
+  gap: 12px; overflow-x: auto; padding-bottom: 4px; scroll-snap-type: x mandatory;
+}
+@media (min-width: 640px) { .scroller { grid-auto-columns: 45%; } }
+@media (min-width: 900px) { .scroller { grid-auto-columns: 33%; } }
+
+.tiler-card {
+  scroll-snap-align: start;
+  display: grid; grid-template-columns: 112px 1fr; gap: 12px;
+  background: var(--card); border: 1px solid var(--ring); border-radius: 12px; padding: 12px;
+}
+.tiler-thumb { width: 112px; height: 112px; border-radius: 10px; object-fit: cover; background: #ddd; }
+.tiler-name { margin: 0; font-size: 1.05rem; }
+.badge { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #eef2ff; }
+.rating { font-size: 0.9rem; color: #f59e0b; }
+.meta { color: var(--muted); font-size: 0.9rem; }
+
+.btn {
+  appearance: none; border: 1px solid var(--brand); color: #fff; background: var(--brand);
+  padding: 10px 12px; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-block; text-align: center;
+}
+.btn.ghost { background: transparent; color: var(--brand); }
