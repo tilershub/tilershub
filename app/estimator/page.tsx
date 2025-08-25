@@ -6,15 +6,14 @@ import { computeReport } from './EstimatorLogic';
 
 export default function Estimator(){
   const [inp, setInp] = useState<Inputs>({
-    len_ft: 0, wid_ft: 0, tile_label: sizes[1].label,
+    len_ft: 0, wid_ft: 0, tile_label: (sizes as any[])[1].label,
     tile_price_sqft: 0, skirting_len_ft: 0, labor_rate_sqft: 0
   });
 
   const rep: Report = useMemo(()=> computeReport(inp, sizes as any), [inp]);
 
-  const onNum = (k: keyof Inputs) => (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onNum = (k: keyof Inputs) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setInp(v => ({ ...v, [k]: +e.target.value || 0 }));
-  };
 
   const reportRef = useRef<HTMLDivElement>(null);
   async function downloadPDF(){
@@ -34,25 +33,52 @@ export default function Estimator(){
 
   return (
     <main className="home">
-      <h1 style={{fontSize:22,margin:'8px 0 16px'}}>Floor Tiling Estimator</h1>
-      <div className="section">
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))',gap:12}}>
-          <label>Length (ft)<input type="number" inputMode="decimal" value={inp.len_ft||''} onChange={onNum('len_ft')} /></label>
-          <label>Width (ft)<input type="number" inputMode="decimal" value={inp.wid_ft||''} onChange={onNum('wid_ft')} /></label>
-          <label>Tile Size
+      <h1>Floor Tiling Estimator</h1>
+
+      {/* INPUTS */}
+      <section className="section card">
+        <div style={{display:'grid', gap:12, gridTemplateColumns:'repeat(auto-fit, minmax(160px, 1fr))'}}>
+          <div>
+            <label>Length (ft)</label>
+            <input type="number" inputMode="decimal" value={inp.len_ft||''} onChange={onNum('len_ft')} placeholder="e.g., 20" />
+          </div>
+          <div>
+            <label>Width (ft)</label>
+            <input type="number" inputMode="decimal" value={inp.wid_ft||''} onChange={onNum('wid_ft')} placeholder="e.g., 15" />
+          </div>
+          <div>
+            <label>Tile Size</label>
             <select value={inp.tile_label} onChange={e=>setInp(v=>({...v, tile_label: e.target.value}))}>
-              {(sizes as any[]).map(s=>(<option key={s.label} value={s.label}>{s.label}</option>))}
+              {(sizes as any[]).map(s=>(
+                <option key={s.label} value={s.label}>{s.label}</option>
+              ))}
             </select>
-          </label>
-          <label>Tile Price (LKR / sqft)<input type="number" inputMode="decimal" value={inp.tile_price_sqft||''} onChange={onNum('tile_price_sqft')} /></label>
-          <label>Skirting Length (ft)<input type="number" inputMode="decimal" value={inp.skirting_len_ft||''} onChange={onNum('skirting_len_ft')} /></label>
-          <label>Labor Rate (LKR / sqft)<input type="number" inputMode="decimal" value={inp.labor_rate_sqft||''} onChange={onNum('labor_rate_sqft')} /></label>
+          </div>
+          <div>
+            <label>Tile Price (LKR / sqft)</label>
+            <input type="number" inputMode="decimal" value={inp.tile_price_sqft||''} onChange={onNum('tile_price_sqft')} placeholder="e.g., 250" />
+          </div>
+          <div>
+            <label>Skirting Length (ft) <span style={{color:'var(--muted)'}}>(optional)</span></label>
+            <input type="number" inputMode="decimal" value={inp.skirting_len_ft||''} onChange={onNum('skirting_len_ft')} placeholder="e.g., 65" />
+          </div>
+          <div>
+            <label>Labor Rate (LKR / sqft) <span style={{color:'var(--muted)'}}>(optional)</span></label>
+            <input type="number" inputMode="decimal" value={inp.labor_rate_sqft||''} onChange={onNum('labor_rate_sqft')} placeholder="e.g., 140" />
+          </div>
         </div>
-      </div>
-      <div className="section" ref={reportRef}>
+
+        <div style={{marginTop:12, display:'grid', gap:12, gridTemplateColumns:'1fr 1fr'}}>
+          <button className="btn" onClick={()=>window.print()}>Print</button>
+          <button className="btn-primary" onClick={downloadPDF}>Download PDF</button>
+        </div>
+      </section>
+
+      {/* REPORT */}
+      <section className="section card" ref={reportRef}>
         <h2 style={{marginTop:0}}>Report</h2>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:12}}>
-          <div className="card">
+        <div style={{display:'grid', gap:12, gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))'}}>
+          <div className="card" style={{boxShadow:'none', padding:0}}>
             <h3>Project Summary</h3>
             <table className="table"><tbody>
               <tr><td>Area</td><td><b>{rep.sqft}</b> sqft</td></tr>
@@ -60,7 +86,8 @@ export default function Estimator(){
               <tr><td>Skirting Length</td><td><b>{inp.skirting_len_ft||0}</b> ft</td></tr>
             </tbody></table>
           </div>
-          <div className="card">
+
+          <div className="card" style={{boxShadow:'none', padding:0}}>
             <h3>Tile Quantity</h3>
             <table className="table"><tbody>
               <tr><td>Floor Tiles</td><td><b>{rep.floor_tiles}</b></td></tr>
@@ -69,7 +96,8 @@ export default function Estimator(){
               <tr><td>Total Tiles</td><td><b>{rep.tiles_total}</b></td></tr>
             </tbody></table>
           </div>
-          <div className="card">
+
+          <div className="card" style={{boxShadow:'none', padding:0}}>
             <h3>Costs</h3>
             <table className="table"><tbody>
               <tr><td>Materials</td><td><b>LKR {rep.materials_cost.toLocaleString()}</b></td></tr>
@@ -80,11 +108,7 @@ export default function Estimator(){
             </tbody></table>
           </div>
         </div>
-      </div>
-      <div className="cta" style={{display:'flex',gap:12,justifyContent:'center'}}>
-        <button className="btn" onClick={()=>window.print()}>Print</button>
-        <button className="btn-primary" onClick={downloadPDF}>Download PDF</button>
-      </div>
+      </section>
     </main>
   );
 }
