@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+
+[context.production.environment]
+  NODE_VERSION = "18.20.3"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["@supabase/supabase-js","@supabase/ssr"]
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

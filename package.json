@@ -1,0 +1,36 @@
+{
+  "name": "tilershub",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0 -p 3000",
+    "build": "next build",
+    "start": "next start -H 0.0.0.0 -p 3000",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "fmt": "prettier --write ."
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.4.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.5.1",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.5",
+    "vitest": "^1.6.0",
+    "prettier": "^3.3.3"
+  },
+  "engines": { "node": ">=18.18.0" }
+}
