@@ -1,4 +1,7 @@
-import { adminClient, sanitizeText, sanitizeUrl } from '../_lib';
+import { adminClient } from '../_lib';
+import { sanitizeText, sanitizeUrl } from '../_utils';
+
+// ... rest of your CRUD code for tilers stays the same
 
 export const dynamic = 'force-dynamic';
 
