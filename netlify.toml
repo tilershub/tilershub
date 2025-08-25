@@ -1,8 +1,8 @@
 [build]
   command = "npm run build"
 
-[context.production.environment]
-  NODE_VERSION = "18.20.3"
+[build.environment]
+  NODE_VERSION = "22"
 
 [functions]
   node_bundler = "esbuild"
