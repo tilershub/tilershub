@@ -1,25 +1,103 @@
-:root { --brand:#003049; --ink:#111827; --muted:#6b7280; --card:#fff; }
-*{box-sizing:border-box} html,body{margin:0;padding:0}
-body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:#f6f7fb;color:var(--ink)}
-a{color:inherit}
-.home{max-width:1100px;margin:0 auto;padding:16px}
-.section{background:var(--card);border-radius:12px;border:1px solid #e5e7eb;box-shadow:0 1px 10px rgba(0,0,0,.04);margin:16px 0;padding:16px}
-.section__head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.section__head h2{margin:0;color:var(--brand);font-size:18px}
-.scroller{display:flex;gap:12px;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
-.card{min-width:220px;max-width:260px;scroll-snap-align:start;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
-.card h3{margin:6px 0 4px;font-size:16px}
-.card p{margin:0;color:var(--muted);font-size:14px}
-.btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid #e5e7eb;background:#fff}
-.btn-primary{background:var(--brand);color:#fff;border-color:var(--brand);font-weight:700;text-decoration:none}
-input,select,button,textarea{width:100%;padding:12px 14px;margin:10px 0;font-size:16px;border:1px solid #e5e7eb;border-radius:10px;background:#fff}
-label{display:block;font-weight:600;color:#374151}
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{border:1px solid #e5e7eb;padding:8px;text-align:left}
-.badge{background:var(--brand);color:#fff;border-radius:999px;padding:4px 10px;font-weight:700}
-.cta{margin:20px 0;text-align:center}
-.banner-carousel{display:block;width:100%;overflow:hidden;border-radius:12px;background:#eef2ff;border:1px solid #e5e7eb}
-.banner-slide img{display:block;width:100%;height:auto}
-.nav{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
-.nav a{text-decoration:none;color:#111827;padding:6px 0}
-.nav .brand{font-weight:800;letter-spacing:.3px;color:#003049}
+/* ===== Mobile-first reset & tokens ===== */
+:root{
+  --brand:#003049;
+  --ink:#0f172a;        /* slate-900 */
+  --muted:#64748b;      /* slate-500 */
+  --bg:#f7fafc;         /* very light */
+  --card:#ffffff;
+  --ring:#dbeafe;       /* light blue */
+  --radius:14px;
+  --shadow:0 6px 18px rgba(0,0,0,.06);
+  --maxw: 960px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  color:var(--ink);
+  background:var(--bg);
+}
+
+/* Safe areas (iOS home-indicator) */
+.page{
+  min-height:100%;
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
+}
+
+/* Type scale */
+h1{font-size:clamp(22px, 4.5vw, 34px); margin:0 0 .6rem}
+h2{font-size:clamp(18px, 4vw, 26px); margin:1.2rem 0 .6rem}
+h3{font-size:clamp(16px, 3.5vw, 20px); margin:1rem 0 .5rem}
+p, label, input, select, button{font-size:16px} /* prevents iOS zoom */
+
+/* Layout container */
+.container{
+  width:100%;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding: clamp(12px, 3.5vw, 24px);
+}
+
+/* Cards */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(14px, 3.5vw, 18px);
+  margin: clamp(10px, 3vw, 16px) 0;
+}
+
+/* Links */
+a{color:var(--brand); text-decoration:none}
+a:hover{text-decoration:underline}
+.footer a{border-bottom:1px solid rgba(0,0,0,.15); padding-bottom:2px}
+
+/* Buttons */
+.btn{
+  display:inline-block;
+  background:var(--brand);
+  color:#fff;
+  font-weight:700;
+  border:none;
+  border-radius:10px;
+  padding: 12px 16px;
+  line-height:1;
+  box-shadow:0 4px 10px rgba(0,48,73,.15);
+  cursor:pointer;
+}
+.btn.block{display:block; width:100%; text-align:center}
+.btn:active{transform:translateY(1px)}
+
+/* Forms */
+form .row{display:flex; gap:12px}
+form .row > *{flex:1}
+label{display:block; color:var(--muted); margin:10px 0 6px}
+input, select, textarea{
+  width:100%;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:12px 14px;
+  outline:0;
+  background:#fff;
+  transition: box-shadow .2s, border-color .2s;
+}
+input:focus, select:focus, textarea:focus{
+  border-color:#93c5fd;
+  box-shadow:0 0 0 4px var(--ring);
+}
+
+/* Section titles */
+.section-title{
+  font-weight:800;
+  letter-spacing:.2px;
+}
+
+/* Header & Footer spacing helpers */
+.stack{display:grid; gap:clamp(14px, 3.5vw, 18px)}
+.spread{display:flex; align-items:center; justify-content:space-between; gap:12px}
+
+/* Utility: hide the old fieldset lines that look broken on iOS */
+fieldset{border:none; padding:0; margin:0}
+legend{display:none}
